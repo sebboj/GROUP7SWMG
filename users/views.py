@@ -132,7 +132,8 @@ def update(request, username):
             
 #This method will add a credit card to the fields of a specific user provided a username in the search bar
 #it updates the whole users information so a credit card can technically be updated here but it will just be replacing all the fields with new user information
-#checks if user exist in the database        
+#checks if user exist in the database 
+#testing github       
 @api_view(['GET','POST'])
 def add_card(request, username):
     credit_card_data = request.data.get('credit_card')
