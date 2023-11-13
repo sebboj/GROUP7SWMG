@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import BookCollections
 import pymongo
-import DBConnections
 # Create your views here.
 def home(request):
     return HttpResponse('hello world')
