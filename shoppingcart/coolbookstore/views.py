@@ -3,14 +3,16 @@ from .models import users, cart, inv
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+
 # Create your views here.
 def home(request):
     return HttpResponse('Selam World')
 
+
 #add book to shopping cart
 @api_view(['POST'])
 def addToCart(request, bookID, userID):
-    if not users.find_one({'uid': userID}):
+    if not users.find_one({'username': userID}):
         return Response({'ERROR: User does not exist'})
 
     if not inv.find_one({'ISBN': bookID}):
@@ -18,16 +20,17 @@ def addToCart(request, bookID, userID):
 
     entry = {
         'ISBN': bookID,
-        'uid': userID,
+        'username': userID,
     }
     cart.insert_one(entry)
 
     return Response({'Book has been successfully added to user cart'})
 
+
 #delete book from shopping cart
 @api_view(['DELETE'])
 def delFromCart(request, bookID, userID):
-    entry = cart.find_one({'ISBN': bookID, 'uid': userID})
+    entry = cart.find_one({'ISBN': bookID, 'username': userID})
     if not entry:
         return Response({'ERROR: Cart entry for given user and book does not exist'})
 
@@ -39,7 +42,7 @@ def delFromCart(request, bookID, userID):
 @api_view(['GET'])
 def getCartBooks(request, userID):
     book_list = []
-    user_cart = cart.find({'uid': userID})
+    user_cart = cart.find({'username': userID})
 
     for book in user_cart:
         currISBN = book.get('ISBN', '')
@@ -69,7 +72,7 @@ def getCartBooks(request, userID):
 @api_view(['GET'])
 def getCartTotal(request, userID):
     subtotal = 0
-    books = cart.find({'uid':userID})
+    books = cart.find({'username':userID})
 
     for book in books:
         subtotal += inv.find_one({'ISBN': book.get('ISBN', '')}).get('priceUSD', '')
