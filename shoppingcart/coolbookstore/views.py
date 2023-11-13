@@ -31,7 +31,7 @@ def delFromCart(request, bookID, userID):
     if not entry:
         return Response({'ERROR: Cart entry for given user and book does not exist'})
 
-    entry.delete()
+    cart.delete_one(entry)
     return Response({'Cart entry has been successfully deleted'})
 
 
@@ -42,7 +42,8 @@ def getCartBooks(request, userID):
     user_cart = cart.find({'uid': userID})
 
     for book in user_cart:
-        book_info = inv.find_one({'ISBN': book.get('ISBN', '')})
+        currISBN = book.get('ISBN', '')
+        book_info = inv.find_one({'ISBN': currISBN})
         curr = {
             'ISBN': book_info.get('ISBN', ''),
             'name': book_info.get('name', ''),
