@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'shoppingcart',
+    'Search_Sort_Update',
     'rest_framework',
     
     
