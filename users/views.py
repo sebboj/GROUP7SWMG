@@ -83,7 +83,7 @@ def addUser(request):
 #if a key does not exist in the database an error will be produced
 #if username does not exist.. error is produced
 #if user tries to change their username to a username that is already taken... error is produced
-#if update is succesfull it will display a message else it will display an error message
+#if update is succesfull it will display a message else it will display an error message.
 @api_view(['GET','PATCH'])
 def update(request, username):
         '''
